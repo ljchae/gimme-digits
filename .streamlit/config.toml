@@ -2,8 +2,9 @@
 enableStaticServing = true
 
 [[theme.fontFaces]]
-family="Pixelify Sans"
-url="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+family = "Pixelify Sans"
+url = "app/static/PixelifySans-Regular.ttf"
+style="normal"
 
 [theme]
 base = "dark"
