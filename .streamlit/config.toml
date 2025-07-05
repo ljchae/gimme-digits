@@ -14,3 +14,4 @@ secondaryBackgroundColor = "#51342c"
 textColor = "#efebc4"
 linkColor = "#dabf5c"
 showWidgetBorder = false
+font="Pixelify Sans"
