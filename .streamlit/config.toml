@@ -1,3 +1,10 @@
+[server]
+enableStaticServing = true
+
+[[theme.fontFaces]]
+family="Pixelify Sans"
+url="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+
 [theme]
 base = "dark"
 primaryColor = "#b7d1ea"
