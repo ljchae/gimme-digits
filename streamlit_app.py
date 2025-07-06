@@ -11,7 +11,7 @@ c_today = st.container()
 
 df = conn.read()
 
-current_date = datetime.date.today()
+current_date = datetime.date.today().strftime("%Y-%m-%d")
 current_question = df[df['Date'] == current_date]
 if current_question.empty:
     st.warning("No question available for today.")
