@@ -14,6 +14,14 @@ conn_responses = st.connection("gsheets_responses", type=GSheetsConnection)
 df_questions = conn_questions.read()
 df_responses = conn_responses.read()
 
+# disable the submit button after it is clicked
+def disable_submit():
+    st.session_state.disabled = True
+
+# initialize disabled for form_submit_button to False
+if "disabled" not in st.session_state:
+    st.session_state.disabled = False
+
 # fetch today's question
 current_date = datetime.date.today().strftime("%Y-%m-%d")
 current_question = df_questions[df_questions['Date'] == current_date]
@@ -29,10 +37,15 @@ with st.form("question_form"):
         "Your Guess", 
         value=None, 
         placeholder="Type a number...",
-        step=1
+        step=1,
+        disabled=st.session_state.disabled
     )
 
-    submitted = st.form_submit_button(label="Gimme Your Digits")
+    submitted = st.form_submit_button(
+        label="Gimme Your Digits",
+        on_click=disable_submit, 
+        disabled=st.session_state.disabled
+    )
 
     if submitted:
         if user_guess is not None:
