@@ -66,7 +66,7 @@ with st.form("question_form"):
             df_responses = conn_responses.read()
             if not df_responses.empty:
                 st.write("Total Responses:", len(df_responses))
-                correct_guesses = df_responses[df_responses['user_response'] == df_responses['Correct Answer']]
+                correct_guesses = df_responses[df_responses['user_response'] == df_responses['correct_answer']]
                 st.write("Correct Guesses:", len(correct_guesses))
                 st.write("Incorrect Guesses:", len(df_responses) - len(correct_guesses))
                 st.write("Accuracy:", f"{(len(correct_guesses) / len(df_responses) * 100):.2f}%" if len(df_responses) > 0 else "N/A")
