@@ -61,6 +61,18 @@ with st.form("question_form"):
             conn_responses.update(
                 data=pd.DataFrame(df_responses)
             )
+
+            # display statistics of user guesses
+            st.subheader("Statistics")
+            df_responses = conn_responses.read()
+            if not df_responses.empty:
+                st.write("Total Responses:", len(df_responses))
+                correct_guesses = df_responses[df_responses['User Guess'] == df_responses['Correct Answer']]
+                st.write("Correct Guesses:", len(correct_guesses))
+                st.write("Incorrect Guesses:", len(df_responses) - len(correct_guesses))
+                st.write("Accuracy:", f"{(len(correct_guesses) / len(df_responses) * 100):.2f}%" if len(df_responses) > 0 else "N/A")
+            else:
+                st.write("No responses recorded yet.")
         # st.cache_data.clear()
         # st.rerun()
 
@@ -88,18 +100,6 @@ c_statistics = stylable_container(
     """
 )
 
-
-# display statistics of user guesses
-st.subheader("Statistics")
-df_responses = conn_responses.read()
-if not df_responses.empty:
-    st.write("Total Responses:", len(df_responses))
-    correct_guesses = df_responses[df_responses['User Guess'] == df_responses['Correct Answer']]
-    st.write("Correct Guesses:", len(correct_guesses))
-    st.write("Incorrect Guesses:", len(df_responses) - len(correct_guesses))
-    st.write("Accuracy:", f"{(len(correct_guesses) / len(df_responses) * 100):.2f}%" if len(df_responses) > 0 else "N/A")
-else:
-    st.write("No responses recorded yet.")
 
 css="""
 <style>
