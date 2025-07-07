@@ -56,7 +56,7 @@ with st.form("question_form"):
                 st.error("Incorrect!")
                 st.write(f"Correct answer was: {int(current_question['Answer'].values[0])}")
             st.write(f"Fact: {current_question['Fact'].values[0]}")    
-            response_data = {
+            user_response = {
                 "timestamp_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
                 "user_id": st.session_state.get('user_id', 'anonymous'),
                 "question_id": current_question['Question ID'].values[0] if not current_question.empty else None,
@@ -64,14 +64,16 @@ with st.form("question_form"):
                 "correct_answer": int(current_question['Answer'].values[0]) if not current_question.empty else None,
                 "is_correct": user_guess == int(current_question['Answer'].values[0]) if not current_question.empty else None
             }
+
             # append the response data to the responses dataframe
             if df_responses.empty:
-                df_responses = pd.DataFrame([response_data])
+                df_responses_combined = pd.DataFrame([user_response])
             else:
-                df_responses = pd.concat([df_responses, pd.DataFrame([response_data])], ignore_index=True)
+                df_responses_combined = pd.concat([df_responses, pd.DataFrame([user_response])], ignore_index=True)
+            
             # update the responses in google sheets      
             df_responses_updated = conn_responses.update(
-                data=pd.DataFrame(df_responses)
+                data=pd.DataFrame(df_responses_combined)
             )
 
             # display statistics of user guesses
