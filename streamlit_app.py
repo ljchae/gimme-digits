@@ -70,13 +70,13 @@ with st.form("question_form"):
             else:
                 df_responses = pd.concat([df_responses, pd.DataFrame([response_data])], ignore_index=True)
             # update the responses in google sheets      
-            conn_responses.update(
+            df_responses_updated = conn_responses.update(
                 data=pd.DataFrame(df_responses)
             )
 
             # display statistics of user guesses
             st.subheader("Statistics")
-            df_responses = conn_responses.read()
+            df_responses = df_responses_updated
             if not df_responses.empty:
                 st.write("Total Responses:", len(df_responses))
                 correct_guesses = df_responses[df_responses['user_response'] == df_responses['correct_answer']]
