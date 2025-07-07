@@ -65,8 +65,6 @@ with st.form("question_form"):
                 "is_correct": user_guess == int(current_question['Answer'].values[0]) if not current_question.empty else None
             }
 
-            st.write(len(df_responses), "responses before update")
-
             # append the response data to the responses dataframe
             if df_responses.empty:
                 df_responses_combined = pd.DataFrame([user_response])
